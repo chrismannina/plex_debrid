@@ -1,5 +1,6 @@
 from base import *
-#import child modules
+
+# import child modules
 from scraper.services import rarbg
 from scraper.services import x1337
 from scraper.services import jackett
@@ -8,15 +9,19 @@ from scraper.services import orionoid
 from scraper.services import nyaa
 from scraper.services import torrentio
 
-#define subclass method
-def __subclasses__():
-    return [rarbg,x1337,jackett,prowlarr,orionoid,nyaa,torrentio]
 
-active = ['torrentio']
+# define subclass method
+def __subclasses__():
+    return [rarbg, x1337, jackett, prowlarr, orionoid, nyaa, torrentio]
+
+
+active = ["torrentio"]
 overwrite = []
+
 
 def setup(cls, new=False):
     from settings import settings_list
+
     global active
     settings = []
     for category, allsettings in settings_list:
@@ -32,7 +37,7 @@ def setup(cls, new=False):
             print("0) Back")
             indices = []
             for index, setting in enumerate(settings):
-                print(str(index + 1) + ') ' + setting.name)
+                print(str(index + 1) + ") " + setting.name)
                 indices += [str(index + 1)]
             print()
             if settings == []:
@@ -46,7 +51,7 @@ def setup(cls, new=False):
                 if not cls.name in active:
                     active += [cls.name]
                 back = True
-            elif choice == '0':
+            elif choice == "0":
                 back = True
     else:
         print()
@@ -56,6 +61,7 @@ def setup(cls, new=False):
             if not cls.name in active:
                 active += [cls.name]
 
+
 def get():
     cls = sys.modules[__name__]
     activeservices = []
@@ -64,6 +70,7 @@ def get():
             if service.name == servicename:
                 activeservices += [service]
     return activeservices
+
 
 def sequential():
     global overwrite
